@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "200662083533",
+    "project_id": "efw-apps",
+    "storage_bucket": "efw-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200662083533:android:6feab55150f7446a9d0684",
+        "android_client_info": {
+          "package_name": "com.efw.apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200662083533-ttirftao928b1umcnka3qjinnh00c99m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.efw.apps",
+            "certificate_hash": "0fd5420f39ebdf3fb7df9369aca2d262f9611a93"
+          }
+        },
+        {
+          "client_id": "200662083533-s814rrn3ubr9nf8fsf1gnj4orspsdoo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACW2YT2DzVEaie79AliBm3ZWRdkbGuW7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200662083533-s814rrn3ubr9nf8fsf1gnj4orspsdoo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
