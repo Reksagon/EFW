@@ -35,10 +35,8 @@ public class ExercisesFragment extends Fragment {
         binding = FragmentExercisesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-
+        binding.progressView1.setProgress(15);
         ArrayList<Exercise> data = new ArrayList<Exercise>();
         data.add(new Exercise("Поднятие нижней губы"));
         data.add(new Exercise("Подъем подбородка"));
