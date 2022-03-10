@@ -1,7 +1,9 @@
 package com.efw.apps;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,8 +35,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean mode = false;
     private ActivityMainBinding binding;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,33 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+        {
+            binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
+        }
+        else
+        {
+            binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_sundim));
+            mode = true;
+        }
+
+        binding.imgMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mode)
+                {
+                    binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_sundim));
+                    mode = false;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                else
+                {
+                    binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
+                    mode = true;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+            }
+        });
 
         Account.mAuth = FirebaseAuth.getInstance();
         Account.currentUser = Account.mAuth.getCurrentUser();

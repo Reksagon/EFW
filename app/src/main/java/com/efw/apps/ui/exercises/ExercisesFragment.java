@@ -1,5 +1,6 @@
 package com.efw.apps.ui.exercises;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -25,8 +26,10 @@ public class ExercisesFragment extends Fragment {
 
     private FragmentExercisesBinding binding;
     private ExerciesAdapter adapter;
+    private DayAdapter dayAdapter;
     TextToSpeech textToSpeech = null;
 
+    @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ExercisesViewModel dashboardViewModel =
@@ -72,13 +75,36 @@ public class ExercisesFragment extends Fragment {
         binding.exercicesList.setLayoutManager(linearLayout);
         binding.exercicesList.setAdapter(adapter);
 
+        dayAdapter = new DayAdapter(getActivity(), getDays());
+        dayAdapter.setHasStableIds(false);
+        LinearLayoutManager linearLayout_day = new LinearLayoutManager(getActivity());
+        linearLayout_day.setOrientation(RecyclerView.VERTICAL);
+        binding.dayList.setLayoutManager(linearLayout_day);
+        binding.dayList.setAdapter(dayAdapter);
+
+
         binding.exercicesList.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
         });
         return root;
+    }
+
+    private ArrayList<Day> getDays()
+    {
+        ArrayList<Day> days = new ArrayList<>();
+        for(int i = 1; i <= 100; i++)
+        {
+            if(i%2 == 0)
+                days.add(new Day(i, false, false));
+            else
+                days.add(new Day(i, true, false));
+        }
+
+        return days;
     }
 
     @Override
