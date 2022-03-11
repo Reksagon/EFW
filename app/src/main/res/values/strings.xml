@@ -25,6 +25,17 @@
     <string name="rate_app">Оценить приложение</string>
     <string name="contact_developer">Связаться с разработчиком</string>
     <string name="buy_pro">Купить ПРО-версию</string>
+    <string name="all">ВСЕГО</string>
+    <string name="training">Тренировок</string>
+    <string name="time">Время</string>
+    <string name="history">ИСТОРИЯ</string>
+    <string name="monday">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
+    <string name="saturday">СБ</string>
+    <string name="sunday">ВС</string>
 
 
 </resources>
