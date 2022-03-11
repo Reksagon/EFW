@@ -28,6 +28,7 @@ public class ExercisesFragment extends Fragment {
     private ExerciesAdapter adapter;
     private DayAdapter dayAdapter;
     TextToSpeech textToSpeech = null;
+    ArrayList<Exercise> data = new ArrayList<Exercise>();
 
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,22 +53,6 @@ public class ExercisesFragment extends Fragment {
         data.add(new Exercise("Выпячивание подбородка"));
         data.add(new Exercise("Ещё раз давим на подбородок"));
 
-        binding.startBttn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.startBttn.setVisibility(View.GONE);
-                binding.exercicesList.setVisibility(View.VISIBLE);
-                textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
-                    @Override
-                    public void onInit(int i) {
-                        Locale language = new Locale("ru");
-                        textToSpeech.setLanguage(language);
-                        String utteranceId = UUID.randomUUID().toString();
-                        textToSpeech.speak(data.get(0).getName(), TextToSpeech.QUEUE_FLUSH, null,utteranceId);
-                    }
-                });
-            }
-        });
 
         adapter = new ExerciesAdapter(data, binding.exercicesList, getActivity(), binding);
         LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity());
@@ -75,7 +60,7 @@ public class ExercisesFragment extends Fragment {
         binding.exercicesList.setLayoutManager(linearLayout);
         binding.exercicesList.setAdapter(adapter);
 
-        dayAdapter = new DayAdapter(getActivity(), getDays());
+        dayAdapter = new DayAdapter(getActivity(), getDays(), binding, data.get(0).getName());
         dayAdapter.setHasStableIds(false);
         LinearLayoutManager linearLayout_day = new LinearLayoutManager(getActivity());
         linearLayout_day.setOrientation(RecyclerView.VERTICAL);

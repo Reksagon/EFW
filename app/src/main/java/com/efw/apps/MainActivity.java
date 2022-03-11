@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean mode = false;
     private ActivityMainBinding binding;
+    public static boolean timer = false;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -64,17 +65,16 @@ public class MainActivity extends AppCompatActivity {
         binding.imgMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mode)
-                {
-                    binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_sundim));
-                    mode = false;
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                else
-                {
-                    binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
-                    mode = true;
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                if(!timer) {
+                    if (mode) {
+                        binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_sundim));
+                        mode = false;
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    } else {
+                        binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
+                        mode = true;
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
                 }
             }
         });
@@ -137,14 +137,15 @@ public class MainActivity extends AppCompatActivity {
             String name = account.getDisplayName();
             String email = account.getEmail();
 
-            Account.userName = name + ", " + email;
+            Account.userName = name;
+            Account.userEmail = email;
             if (account.getPhotoUrl() != null) {
                 Glide.with(this).load(account.getPhotoUrl().toString())
                         .thumbnail(0.5f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.imageView2);
             }
-
+            binding.navView.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,6 +20,15 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(Account.userPhoto == null) {
+            ImageView imageView = getActivity().findViewById(R.id.imageView2);
+            Account.userPhoto = imageView.getDrawable();
+        }
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel notificationsViewModel =
@@ -27,12 +37,11 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         binding.userName.setText(Account.userName);
-        ImageView imageView = getActivity().findViewById(R.id.imageView2);
-        binding.imageView.setImageDrawable(imageView.getDrawable());
+        binding.userEmail.setText(Account.userEmail);
+
+        binding.imageView.setImageDrawable(Account.userPhoto);
         return root;
     }
 

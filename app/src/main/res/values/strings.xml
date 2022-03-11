@@ -10,4 +10,21 @@
     <string name="success_no">Осталось</string>
     <string name="rest">Отдых</string>
     <string name="start">Начать</string>
+    <string name="count_exercice">10 упражнений</string>
+    <string name="time_exercice">10 мин.</string>
+    <string name="next">Следующее</string>
+    <string name="skip">Пропустить</string>
+    <string name="need_rest">Вам нужно отдохнуть</string>
+    <string name="okay">Хорошо ;)</string>
+    <string name="your_profile">ВАШ ПРОФИЛЬ</string>
+    <string name="your_age">Возраст</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="general_settings">ОБЩИЕ НАСТРОЙКИ</string>
+    <string name="language_app">Язык приложения</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="contact_developer">Связаться с разработчиком</string>
+    <string name="buy_pro">Купить ПРО-версию</string>
+
+
 </resources>

@@ -6,24 +6,34 @@
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable-v24/ic_card_exercice.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable-v25/ic_background_bottom.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/background_buttom_day_item.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/background_button_day_item.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/background_card.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/background_exercice_item.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/background_text_profile.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/color_bottom_selector.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ellipse.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_background_bottom.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_card_2.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_card_exercice.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_check.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_clock.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_globe.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_next.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_paperplaneright.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_pause.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_phone.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_rest.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_star.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_vector.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/exercise_day_item.xml" value="0.264" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_dashboard.xml" value="0.22735507246376813" />
-        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_exercises.xml" value="0.264" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_exercises.xml" value="0.152" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_home.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_notifications.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_profile.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_results.xml" value="0.22735507246376813" />
-        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/layout_exersice_item.xml" value="0.22735507246376813" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/layout_exersice_item.xml" value="0.2" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

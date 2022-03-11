@@ -2,6 +2,8 @@ package com.efw.apps.ui.exercises;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.AsyncTask;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.efw.apps.R;
 import com.efw.apps.databinding.ExerciseDayItemBinding;
+import com.efw.apps.databinding.FragmentExercisesBinding;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.UUID;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
     ArrayList<Day> data;
     Activity activity;
+    FragmentExercisesBinding fragmentExercisesBinding;
+    TextToSpeech textToSpeech;
+    String speak_text;
 
-
-    public DayAdapter(Activity activity, ArrayList<Day> data){
+    public DayAdapter(Activity activity, ArrayList<Day> data, FragmentExercisesBinding fragmentExercisesBinding, String speak_text){
         this.data = data;
         this.activity = activity;
+        this.fragmentExercisesBinding = fragmentExercisesBinding;
+        this.speak_text = speak_text;
     }
 
     @Override
@@ -49,19 +58,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
     }
     class DayViewHoler extends RecyclerView.ViewHolder{
 
-        private TextView day_txt, success, day_txt2, success2;
-        private ImageView ellipse, center;
         private ExerciseDayItemBinding binding;
 
         public DayViewHoler(ExerciseDayItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            day_txt =  itemView.findViewById(R.id.day);
-            success = itemView.findViewById(R.id.success);
-            ellipse = itemView.findViewById(R.id.img_ellipse);
-            center = itemView.findViewById(R.id.img_center);
-            day_txt2 =  itemView.findViewById(R.id.day2);
-            success2 = itemView.findViewById(R.id.success2);
+
         }
 
         @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
@@ -73,27 +75,49 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                 binding.currentDay.setVisibility(View.VISIBLE);
                 binding.day2.setText(activity.getString(R.string.day) + " " + String.valueOf(day.getNum_day()));
                 binding.success2.setText(activity.getString(R.string.success) + " 0%");
+                binding.bttnStart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fragmentExercisesBinding.dayList.setVisibility(View.GONE);
+                        fragmentExercisesBinding.startLogo.setVisibility(View.GONE);
+                        fragmentExercisesBinding.exercicesList.setVisibility(View.VISIBLE);
+                        fragmentExercisesBinding.exerciceLogo.setVisibility(View.VISIBLE);
+                        activity.findViewById(R.id.nav_view).setVisibility(View.GONE);
+                        textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int i) {
+                                Locale language = new Locale("ru");
+                                textToSpeech.setLanguage(language);
+                                String utteranceId = UUID.randomUUID().toString();
+                                textToSpeech.speak(speak_text, TextToSpeech.QUEUE_FLUSH, null,utteranceId);
+                            }
+                        });
+                    }
+                });
+                return;
             }
 
-           day_txt.setText(activity.getResources().getString(R.string.day) + " " + String.valueOf(day.getNum_day()));
+           binding.day.setText(activity.getResources().getString(R.string.day) + " " + String.valueOf(day.getNum_day()));
            if(day.isSuccess())
            {
-               success.setText(activity.getResources().getString(R.string.success));
+               binding.success.setText(activity.getResources().getString(R.string.success));
            }
            else
            {
-               success.setText(activity.getResources().getString(R.string.success_no));
-               ellipse.setVisibility(View.GONE);
-               center.setVisibility(View.GONE);
+               binding.success.setText(activity.getResources().getString(R.string.success_no));
+               binding.imgEllipse.setVisibility(View.GONE);
+               binding.imgCenter.setVisibility(View.GONE);
            }
 
            if(day.isRest())
            {
-               ellipse.setVisibility(View.VISIBLE);
-               center.setVisibility(View.VISIBLE);
-               center.setImageDrawable(activity.getDrawable(R.drawable.ic_rest));
-               success.setText(activity.getResources().getString(R.string.rest));
+               binding.imgEllipse.setVisibility(View.VISIBLE);
+               binding.imgCenter.setVisibility(View.VISIBLE);
+               binding.imgCenter.setImageDrawable(activity.getDrawable(R.drawable.ic_rest));
+               binding.success.setText(activity.getResources().getString(R.string.rest));
            }
+
+
         }
     }
 }

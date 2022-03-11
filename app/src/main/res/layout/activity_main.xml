@@ -48,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:background="@drawable/ic_background_bottom"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:itemIconSize="35dp"
         app:itemIconTint="@color/color_bottom_selector"
         app:itemRippleColor="#00A5EC"
