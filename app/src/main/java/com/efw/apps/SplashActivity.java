@@ -49,6 +49,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -195,13 +196,21 @@ public class SplashActivity extends AppCompatActivity {
     }
     private ArrayList<Day> getDays()
     {
+        Calendar calendar = Calendar.getInstance();
         ArrayList<Day> days = new ArrayList<>();
         for(int i = 1; i <= 100; i++)
         {
-            if(i%2 == 0)
-                days.add(new Day(i, false, false));
+            Day day;
+            if(i%2 != 0)
+                day = new Day(i, false, false);
             else
-                days.add(new Day(i, true, false));
+                day = new Day(i, true, false);
+
+            day.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            day.setMonth(calendar.get(Calendar.MONTH));
+            day.setYear(calendar.get(Calendar.YEAR));
+            days.add(day);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         return days;
@@ -216,76 +225,126 @@ public class SplashActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = Account.mAuth.getCurrentUser();
                             UpdateUI(user);
-                            FirebaseDatabase
-                                    .getInstance("https://efw-apps-default-rtdb.firebaseio.com/")
-                                    .getReference()
-                                    .child("Users/" + Account.currentUser.getUid()).get().addOnCompleteListener(
-                                    new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            try {
-                                                AccountFirebase accountFirebase = null;
-                                                for (DataSnapshot child : task.getResult().getChildren()) {
-                                                     accountFirebase = child.getValue(AccountFirebase.class);
-                                                }
-                                                if(accountFirebase != null) {
-                                                    Account.accountFirebase = accountFirebase;
-
-                                                    byte[] data2 = Base64.decode(accountFirebase.getArray_days_training(), Base64.DEFAULT);
-                                                    ArrayList<Day> days = SerializationUtils.deserialize(data2);
-                                                    Account.accountAPP = new AccountAPP(
-                                                            accountFirebase.getCurrent_training_day(),
-                                                            accountFirebase.getLast_date_online(),
-                                                            accountFirebase.getCount_training(),
-                                                            accountFirebase.getTime_training(),
-                                                            accountFirebase.getStart_training_day(),
-                                                            accountFirebase.getLast_training_day(),
-                                                            accountFirebase.isPremium(),
-                                                            accountFirebase.isNight_mode(),
-                                                            accountFirebase.getLanguage(),
-                                                            days);
-                                                }
-                                                else {
-                                                    Calendar calendar = Calendar.getInstance();
-                                                    Calendar tmp = Calendar.getInstance();
-                                                    for (int i = 0; i < 100; i++) {
-                                                        tmp.add(Calendar.DAY_OF_MONTH, 1);
-                                                    }
-                                                    boolean night_mode = false;
-
-                                                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
-                                                        night_mode = false;
-                                                    else
-                                                        night_mode = true;
-
-                                                    byte[] data = SerializationUtils.serialize(getDays());
-                                                    String base64 = Base64.encodeToString(data, Base64.DEFAULT);
-
-                                                    AccountFirebase accountFirebase_new = new AccountFirebase(
-                                                            base64,
-                                                            0,
-                                                            new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)),
-                                                            0,
-                                                            0,
-                                                            new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)),
-                                                            new Date(tmp.get(Calendar.YEAR), tmp.get(Calendar.MONTH), tmp.get(Calendar.DAY_OF_MONTH)),
-                                                            false,
-                                                            night_mode,
-                                                            "ru");
-
-                                                    task.getResult().getRef().push().setValue(accountFirebase_new);
-
-                                                }
-                                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                                            } catch (Exception ex) {
-                                                String str = ex.getMessage();
-                                                Toast.makeText(SplashActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-                                                //ErrorLoad();
-                                            }
-                                        }
-                                    });
+                            LoadData();
                         } else {
 //                            UpdateUI(null);
+                        }
+                    }
+                });
+    }
+
+    private void LoadData()
+    {
+        FirebaseDatabase
+                .getInstance(new String(Base64.decode(Account.URL, Base64.DEFAULT)))
+                .getReference()
+                .child("Users/" + Account.currentUser.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        try {
+                            AccountFirebase accountFirebase = null;
+                            for (DataSnapshot child : task.getResult().getChildren()) {
+                                accountFirebase = child.getValue(AccountFirebase.class);
+                            }
+                            Calendar calendar = Calendar.getInstance();
+                            if(accountFirebase != null) {
+                                Account.accountFirebase = accountFirebase;
+
+                                byte[] data2 = Base64.decode(accountFirebase.getArray_days_training(), Base64.DEFAULT);
+                                ArrayList<Day> days = SerializationUtils.deserialize(data2);
+                                Account.accountAPP = new AccountAPP(
+                                        accountFirebase.getCurrent_training_day(),
+                                        accountFirebase.getLast_date_online(),
+                                        accountFirebase.getCount_training(),
+                                        accountFirebase.getTime_training(),
+                                        accountFirebase.getStart_training_day(),
+                                        accountFirebase.getLast_training_day(),
+                                        accountFirebase.isPremium(),
+                                        accountFirebase.isNight_mode(),
+                                        accountFirebase.getLanguage(),
+                                        days);
+
+                                Date date = accountFirebase.getLast_date_online();
+                                if(calendar.get(Calendar.YEAR) - date.getYear() >= 1 ||
+                                        calendar.get(Calendar.MONTH) - date.getMonth() >= 1 ||
+                                        calendar.get(Calendar.DAY_OF_MONTH) - date.getDay() >=2)
+                                {
+                                    int i = 0;
+                                    for(Day day : Account.accountAPP.array_days_training)
+                                    {
+                                        if(day.getDay() == date.getDay() &&
+                                                day.getMonth() == date.getMonth() &&
+                                                day.getYear() == date.getYear()) {
+                                            i++;
+                                            break;
+                                        }
+                                        i++;
+                                    }
+
+                                    for(; i < 100; i++)
+                                    {
+                                        Account.accountAPP.array_days_training.get(i).setDay(calendar.get(Calendar.DAY_OF_MONTH));
+                                        Account.accountAPP.array_days_training.get(i).setMonth(calendar.get(Calendar.MONTH));
+                                        Account.accountAPP.array_days_training.get(i).setYear(calendar.get(Calendar.YEAR));
+                                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                    }
+                                    Account.accountFirebase.setLast_training_day(new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)));
+                                    calendar = Calendar.getInstance();
+                                }
+                                Account.accountFirebase.setLast_date_online(new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)));
+                                Account.saveAccount();
+                            }
+                            else {
+
+                                Calendar tmp = Calendar.getInstance();
+                                for (int i = 0; i < 100; i++) {
+                                    tmp.add(Calendar.DAY_OF_MONTH, 1);
+                                }
+                                boolean night_mode = false;
+
+                                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                                    night_mode = false;
+                                else
+                                    night_mode = true;
+
+                                ArrayList<Day> dayArrayList = getDays();
+                                byte[] data = SerializationUtils.serialize(dayArrayList);
+                                String base64 = Base64.encodeToString(data, Base64.DEFAULT);
+
+                                AccountFirebase accountFirebase_new = new AccountFirebase(
+                                        base64,
+                                        1,
+                                        new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)),
+                                        0,
+                                        0,
+                                        new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)),
+                                        new Date(tmp.get(Calendar.YEAR), tmp.get(Calendar.MONTH), tmp.get(Calendar.DAY_OF_MONTH)),
+                                        false,
+                                        night_mode,
+                                        "ru");
+
+                                Account.accountFirebase = accountFirebase_new;
+                                task.getResult().getRef().push().setValue(accountFirebase_new);
+
+                                Account.accountAPP = new AccountAPP(
+                                        accountFirebase_new.getCurrent_training_day(),
+                                        accountFirebase_new.getLast_date_online(),
+                                        accountFirebase_new.getCount_training(),
+                                        accountFirebase_new.getTime_training(),
+                                        accountFirebase_new.getStart_training_day(),
+                                        accountFirebase_new.getLast_training_day(),
+                                        accountFirebase_new.isPremium(),
+                                        accountFirebase_new.isNight_mode(),
+                                        accountFirebase_new.getLanguage(),
+                                        dayArrayList);
+
+                            }
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        } catch (Exception ex) {
+                            String str = ex.getMessage();
+                            if(str.equals("Client is offline"))
+                                LoadData();
                         }
                     }
                 });

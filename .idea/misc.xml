@@ -18,6 +18,7 @@
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_check.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_clock.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_ellipse_6.xml" value="0.2015" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_ellipse_6__1_.xml" value="0.225" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_globe.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_next.xml" value="0.2015" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/drawable/ic_paperplaneright.xml" value="0.2015" />
@@ -35,7 +36,7 @@
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_notifications.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_profile.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/fragment_results.xml" value="0.22735507246376813" />
-        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/layout_calenadr_day.xml" value="0.264" />
+        <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/layout_calenadr_day.xml" value="0.4" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/layout/layout_exersice_item.xml" value="0.2" />
         <entry key="..\:/Users/Denys/AndroidStudioProjects/8/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
       </map>

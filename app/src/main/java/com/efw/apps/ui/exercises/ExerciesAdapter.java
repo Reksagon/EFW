@@ -1,5 +1,6 @@
 package com.efw.apps.ui.exercises;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,9 +18,11 @@ import com.efw.apps.R;
 import com.efw.apps.databinding.ExerciseDayItemBinding;
 import com.efw.apps.databinding.FragmentExercisesBinding;
 import com.efw.apps.databinding.LayoutExersiceItemBinding;
+import com.efw.apps.ui.account.Account;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +34,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
     private TextToSpeech textToSpeech;
     FragmentExercisesBinding fragmentExercisesBinding;
     AsyncTask<Void, Integer, Void> timer, rest;
-    public int exercice_time = 60, rest_time = 30;
+    public int exercice_time = 1, rest_time = 1;
 
     Activity activity;
 
@@ -182,6 +185,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
             });
 
             binding.nextExerciceBttn.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onClick(View view) {
                     if(pos != data.size()-1) {
@@ -209,7 +213,16 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                             }
                         });
 
-
+                        Calendar calendar = Calendar.getInstance();
+                        Account.accountAPP.array_days_training.get(Account.accountAPP.current_training_day-1).setSuccess(true);
+                        Account.accountAPP.array_days_training.get(Account.accountAPP.current_training_day-1).setDate_success(
+                                new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                        );
+                        Account.accountFirebase.setCount_training(Account.accountFirebase.getCount_training()+1);
+                        Account.accountFirebase.setCurrent_training_day(Account.accountAPP.current_training_day+1);
+                        Account.accountFirebase.setTime_training(Account.accountFirebase.getTime_training() + 10);
+                        Account.saveAccount();
+                        fragmentExercisesBinding.dayList.getAdapter().notifyDataSetChanged();
                     }
                 }
             });

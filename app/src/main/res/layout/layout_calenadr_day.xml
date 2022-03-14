@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="50dp"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,13 +15,36 @@
         android:text="Вс"
         android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/check_day"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_ellipse_6" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/check_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_ellipse_6" />
+
+        <ImageView
+            android:id="@+id/img_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/check_day"
+            app:layout_constraintEnd_toEndOf="@+id/check_day"
+            app:layout_constraintStart_toStartOf="@+id/check_day"
+            app:layout_constraintTop_toTopOf="@+id/check_day"
+            app:srcCompat="@drawable/ic_ellipse_6__1_" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/num_day"

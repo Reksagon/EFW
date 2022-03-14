@@ -18,6 +18,7 @@ public class AccountFirebase implements Serializable {
     String array_days_training;
 
     public int getCurrent_training_day() {
+
         return current_training_day;
     }
 

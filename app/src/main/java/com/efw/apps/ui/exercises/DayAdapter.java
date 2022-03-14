@@ -19,6 +19,7 @@ import com.efw.apps.databinding.FragmentExercisesBinding;
 import com.efw.apps.ui.account.Account;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -51,7 +52,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
     @Override
     public void onBindViewHolder(DayAdapter.DayViewHoler holder, int position) {
         holder.setIsRecyclable(false);
-        holder.bind(data.get(position));
+        holder.bind(data.get(position), position);
     }
     @Override
     public int getItemCount() {
@@ -67,34 +68,46 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
 
         }
 
-        @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
-        public void bind(Day day)
+        @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
+        public void bind(Day day, int position)
         {
+
             if(day.getNum_day() == Account.accountAPP.current_training_day)
             {
+
                 binding.contentDay.setVisibility(View.GONE);
                 binding.currentDay.setVisibility(View.VISIBLE);
                 binding.day2.setText(activity.getString(R.string.day) + " " + String.valueOf(day.getNum_day()));
-                binding.success2.setText(activity.getString(R.string.success) + " 0%");
-                binding.bttnStart.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        fragmentExercisesBinding.dayList.setVisibility(View.GONE);
-                        fragmentExercisesBinding.startLogo.setVisibility(View.GONE);
-                        fragmentExercisesBinding.exercicesList.setVisibility(View.VISIBLE);
-                        fragmentExercisesBinding.exerciceLogo.setVisibility(View.VISIBLE);
-                        activity.findViewById(R.id.nav_view).setVisibility(View.GONE);
-                        textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
-                            @Override
-                            public void onInit(int i) {
-                                Locale language = new Locale("ru");
-                                textToSpeech.setLanguage(language);
-                                String utteranceId = UUID.randomUUID().toString();
-                                textToSpeech.speak(speak_text, TextToSpeech.QUEUE_FLUSH, null,utteranceId);
-                            }
-                        });
-                    }
-                });
+                if(day.isSuccess())
+                {
+                    binding.success2.setText(activity.getString(R.string.success) + " 100%");
+                    binding.bttnStart.setVisibility(View.GONE);
+                }else {
+                    if(!day.isRest())
+                        binding.success2.setText(activity.getString(R.string.success) + " 0%");
+                    else
+                        binding.success2.setText(activity.getResources().getString(R.string.rest));
+
+                    binding.bttnStart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            fragmentExercisesBinding.dayList.setVisibility(View.GONE);
+                            fragmentExercisesBinding.startLogo.setVisibility(View.GONE);
+                            fragmentExercisesBinding.exercicesList.setVisibility(View.VISIBLE);
+                            fragmentExercisesBinding.exerciceLogo.setVisibility(View.VISIBLE);
+                            activity.findViewById(R.id.nav_view).setVisibility(View.GONE);
+                            textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
+                                @Override
+                                public void onInit(int i) {
+                                    Locale language = new Locale("ru");
+                                    textToSpeech.setLanguage(language);
+                                    String utteranceId = UUID.randomUUID().toString();
+                                    textToSpeech.speak(speak_text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+                                }
+                            });
+                        }
+                    });
+                }
                 return;
             }
 
@@ -110,7 +123,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                binding.imgCenter.setVisibility(View.GONE);
            }
 
-           if(day.isRest())
+           if(day.isRest() && !day.isSuccess())
            {
                binding.imgEllipse.setVisibility(View.VISIBLE);
                binding.imgCenter.setVisibility(View.VISIBLE);

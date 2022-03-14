@@ -19,6 +19,7 @@ import com.efw.apps.databinding.FragmentExercisesBinding;
 import com.efw.apps.ui.account.Account;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -55,6 +56,37 @@ public class ExercisesFragment extends Fragment {
         data.add(new Exercise("Ещё раз давим на подбородок"));
 
 
+        if(!Account.flag) {
+            Calendar calendar = Calendar.getInstance();
+            try {
+                Day tmp = Account.accountAPP.array_days_training.get(Account.accountFirebase.getCurrent_training_day());
+                Day current_tmp = Account.accountAPP.array_days_training.get(Account.accountFirebase.getCurrent_training_day() - 1);
+
+                if (current_tmp.isRest() && !tmp.isSuccess()) {
+                    calendar.add(Calendar.DAY_OF_MONTH, -1);
+                    if (current_tmp.getYear() == calendar.get(Calendar.YEAR) &&
+                            current_tmp.getMonth() == calendar.get(Calendar.MONTH) &&
+                            current_tmp.getDay() == calendar.get(Calendar.DAY_OF_MONTH)) {
+                        Account.accountAPP.current_training_day += 1;
+                    }
+                } else if (tmp.isSuccess()) {
+                    if (tmp.getYear() == calendar.get(Calendar.YEAR) &&
+                            tmp.getMonth() == calendar.get(Calendar.MONTH) &&
+                            tmp.getDay() == calendar.get(Calendar.DAY_OF_MONTH)) {
+                        int i = Account.accountFirebase.getCurrent_training_day() - 1;
+                        for (; i >= 0; i--) {
+                            if (Account.accountAPP.array_days_training.get(i).isSuccess()) ;
+                            break;
+                        }
+                        Account.accountAPP.current_training_day = i;
+                    }
+                }
+            } catch (Exception ex) {
+
+            }
+            Account.flag = true;
+        }
+
         adapter = new ExerciesAdapter(data, binding.exercicesList, getActivity(), binding);
         LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity());
         linearLayout.setOrientation(RecyclerView.HORIZONTAL);
@@ -67,7 +99,7 @@ public class ExercisesFragment extends Fragment {
         linearLayout_day.setOrientation(RecyclerView.VERTICAL);
         binding.dayList.setLayoutManager(linearLayout_day);
         binding.dayList.setAdapter(dayAdapter);
-
+        binding.dayList.smoothScrollToPosition(Account.accountAPP.current_training_day+5);
 
         binding.exercicesList.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
