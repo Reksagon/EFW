@@ -1,10 +1,13 @@
 package com.efw.apps.ui.exercises;
 
-public class Day {
+import java.io.Serializable;
+
+public class Day implements Serializable {
     private int num_day;
     private boolean rest;
     private boolean success;
     private Date date_success = null;
+    private int day, month, year;
 
     public Date getDate_success() {
         return date_success;
@@ -18,6 +21,39 @@ public class Day {
         this.num_day = num_day;
         this.rest = rest;
         this.success = success;
+    }
+
+    public Day(int num_day, int year, int month, int day,  boolean rest, boolean success) {
+        this.num_day = num_day;
+        this.rest = rest;
+        this.success = success;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public int getNum_day() {

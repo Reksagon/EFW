@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.efw.apps.databinding.FragmentExercisesBinding;
+import com.efw.apps.ui.account.Account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class ExercisesFragment extends Fragment {
         binding.exercicesList.setLayoutManager(linearLayout);
         binding.exercicesList.setAdapter(adapter);
 
-        dayAdapter = new DayAdapter(getActivity(), getDays(), binding, data.get(0).getName());
+        dayAdapter = new DayAdapter(getActivity(), Account.accountAPP.array_days_training, binding, data.get(0).getName());
         dayAdapter.setHasStableIds(false);
         LinearLayoutManager linearLayout_day = new LinearLayoutManager(getActivity());
         linearLayout_day.setOrientation(RecyclerView.VERTICAL);
@@ -78,19 +79,6 @@ public class ExercisesFragment extends Fragment {
         return root;
     }
 
-    private ArrayList<Day> getDays()
-    {
-        ArrayList<Day> days = new ArrayList<>();
-        for(int i = 1; i <= 100; i++)
-        {
-            if(i%2 == 0)
-                days.add(new Day(i, false, false));
-            else
-                days.add(new Day(i, true, false));
-        }
-
-        return days;
-    }
 
     @Override
     public void onDestroyView() {

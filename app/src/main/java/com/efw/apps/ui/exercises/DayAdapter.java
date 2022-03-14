@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.efw.apps.R;
 import com.efw.apps.databinding.ExerciseDayItemBinding;
 import com.efw.apps.databinding.FragmentExercisesBinding;
+import com.efw.apps.ui.account.Account;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -69,7 +70,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
         @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
         public void bind(Day day)
         {
-            if(day.getNum_day() == 1)
+            if(day.getNum_day() == Account.accountAPP.current_training_day)
             {
                 binding.contentDay.setVisibility(View.GONE);
                 binding.currentDay.setVisibility(View.VISIBLE);

@@ -79,73 +79,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Account.mAuth = FirebaseAuth.getInstance();
-        Account.currentUser = Account.mAuth.getCurrentUser();
-        signIn();
-    }
-
-    private void signIn()
-    {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getResources().getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, 123);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 123) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-            }
+        if (Account.currentUser.getPhotoUrl() != null) {
+            Glide.with(this).load(Account.currentUser.getPhotoUrl().toString())
+                    .thumbnail(0.5f)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.imageView2);
         }
+
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        Account.mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = Account.mAuth.getCurrentUser();
-                            UpdateUI(user);
-//                            binding.splashText.setVisibility(View.GONE);
-//                            binding.signIn.setVisibility(View.GONE);
-//                            binding.spinKit.setVisibility(View.VISIBLE);
-//                            editor.putString("SignIN", "Yes");
-//                            editor.apply();
-                        } else {
-//                            UpdateUI(null);
-                        }
-                    }
-                });
-    }
 
-    private void UpdateUI(FirebaseUser account)  {
-        if(account != null) {
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-
-            Account.userName = name;
-            Account.userEmail = email;
-            if (account.getPhotoUrl() != null) {
-                Glide.with(this).load(account.getPhotoUrl().toString())
-                        .thumbnail(0.5f)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(binding.imageView2);
-            }
-            binding.navView.setVisibility(View.VISIBLE);
-        }
-    }
 }

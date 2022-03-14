@@ -3,10 +3,13 @@ package com.efw.apps.ui.exercises;
 public class Date {
     int day, month, year;
 
-    public Date(int day, int month, int year) {
+    public Date(int year, int month, int day) {
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+    public Date() {
     }
 
     public int getDay() {
