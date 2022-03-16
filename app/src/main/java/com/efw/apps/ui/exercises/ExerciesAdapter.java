@@ -50,7 +50,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
         textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
-                Locale language = new Locale("ru");
+                Locale language = new Locale(Account.accountFirebase.getLanguage());
                 textToSpeech.setLanguage(language);
             }
         });

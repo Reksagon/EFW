@@ -33,7 +33,6 @@ public class ExercisesFragment extends Fragment {
     private FragmentExercisesBinding binding;
     private ExerciesAdapter adapter;
     private DayAdapter dayAdapter;
-    TextToSpeech textToSpeech = null;
     ArrayList<Exercise> data = new ArrayList<Exercise>();
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})

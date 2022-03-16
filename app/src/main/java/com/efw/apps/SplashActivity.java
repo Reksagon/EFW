@@ -269,6 +269,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = Account.mAuth.getCurrentUser();
+                            Account.currentUser = user;
                             UpdateUI(user);
                             LoadData();
                         } else {

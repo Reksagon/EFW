@@ -99,7 +99,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                             textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
                                 @Override
                                 public void onInit(int i) {
-                                    Locale language = new Locale("ru");
+                                    Locale language = new Locale(Account.accountFirebase.getLanguage());
                                     textToSpeech.setLanguage(language);
                                     String utteranceId = UUID.randomUUID().toString();
                                     textToSpeech.speak(speak_text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);

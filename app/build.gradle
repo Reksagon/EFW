@@ -81,7 +81,7 @@ dependencies {
     //Dialog
     implementation('pl.coreorb:selection-dialogs:0.9.1')
     //Billing
-    implementation 'com.android.billingclient:billing:4.1.0'
+    implementation 'com.android.billingclient:billing:1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
