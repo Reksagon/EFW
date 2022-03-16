@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">10 эффективных упражнений для идеальной формы лица</string>
+    <string name="title_results">Результаты</string>
+    <string name="title_exercises">Упражнения</string>
+    <string name="title_profile">Профиль</string>
+    <string name="card_title_exercice">Эффективные упражнения для идеальной формы лица</string>
+    <string name="logo">Скулы за 30 дней</string>
+    <string name="day">День</string>
+    <string name="success">Выполнено</string>
+    <string name="success_no">Осталось</string>
+    <string name="rest">Отдых</string>
+    <string name="start">Начать</string>
+    <string name="count_exercice">10 упражнений</string>
+    <string name="time_exercice">10 мин.</string>
+    <string name="next">Следующее</string>
+    <string name="skip">Пропустить</string>
+    <string name="need_rest">Вам нужно отдохнуть</string>
+    <string name="okay">Хорошо ;)</string>
+    <string name="your_profile">ВАШ ПРОФИЛЬ</string>
+    <string name="your_age">Возраст</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="general_settings">ОБЩИЕ НАСТРОЙКИ</string>
+    <string name="language_app">Язык приложения</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="contact_developer">Связаться с разработчиком</string>
+    <string name="buy_pro">Купить ПРО-версию</string>
+    <string name="all">ВСЕГО</string>
+    <string name="training">Тренировок</string>
+    <string name="time">Время</string>
+    <string name="history">ИСТОРИЯ</string>
+    <string name="monday">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
+    <string name="saturday">СБ</string>
+    <string name="sunday">ВС</string>
+    <string name="hour">ч</string>
+    <string name="minute">м</string>
+    <string name="email">Связь с разработчиком</string>
+    <string name="email_error">Нет приложений для отправки сообщения!</string>
+    <string name="email_text">Здесь пишите ваше сообщение.</string>
+    <string name="rate_success">Спасибо за оценку!</string>
+    <string name="share">Поделиться</string>
+    <string name="share_text">Приложение 10 эффективных упражнений для идеальной формы лица, скачивай - </string>
+    <string name="yet">Ещё</string>
+    <string name="yet_day">д.</string>
+
+    <string name="ex_1">Поднятие нижней губы</string>
+    <string name="ex_2">Подъем подбородка</string>
+    <string name="ex_3">Поцелуй жирафа</string>
+    <string name="ex_4">Опускание губ</string>
+    <string name="ex_5">Подтягивание щёк</string>
+    <string name="ex_6">Письмо в воздухе</string>
+    <string name="ex_7">Подъем головы</string>
+    <string name="ex_8">Заполненный воздухом</string>
+    <string name="ex_9">Выпячивание подбородка</string>
+    <string name="ex_10">Ещё раз давим на подбородок</string>
+
+</resources>

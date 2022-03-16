@@ -9,6 +9,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.efw.apps.ui.account.Account;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -17,6 +21,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -33,9 +39,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
-    boolean mode = false;
+    public static boolean mode = false;
     private ActivityMainBinding binding;
     public static boolean timer = false;
 
@@ -52,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
         {
             binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
@@ -62,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             mode = true;
         }
 
+
         binding.imgMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
                         binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_sundim));
                         mode = false;
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        Account.accountFirebase.setNight_mode(false);
+                        Account.saveAccount();
                     } else {
                         binding.imgMode.setImageDrawable(getResources().getDrawable(R.drawable.ic_moon));
                         mode = true;
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        Account.accountFirebase.setNight_mode(true);
+                        Account.saveAccount();
                     }
                 }
             }
@@ -85,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.imageView2);
         }
+
+        if(Account.accountFirebase.isPremium())
+        {
+            binding.adView.setVisibility(View.GONE);
+        }
+
+
 
     }
 

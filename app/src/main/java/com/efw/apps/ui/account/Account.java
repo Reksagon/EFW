@@ -35,7 +35,7 @@ public class Account {
     public static String URL = "aHR0cHM6Ly9lZnctYXBwcy1kZWZhdWx0LXJ0ZGIuZmlyZWJhc2Vpby5jb20v";
     public static boolean flag = false;
 
-    public static void saveAccount()
+    public static void saveAccountDays()
     {
         FirebaseDatabase
                 .getInstance(new String(Base64.decode(Account.URL, Base64.DEFAULT)))
@@ -54,14 +54,30 @@ public class Account {
                                 Account.accountFirebase.setArray_days_training(base64);
                                 child.getRef().setValue(Account.accountFirebase);
                             }
-
-
-
                         } catch (Exception ex) {
                             String str = ex.getMessage();
                         }
                     }
                 });
+    }
 
+    public static void saveAccount()
+    {
+        FirebaseDatabase
+                .getInstance(new String(Base64.decode(Account.URL, Base64.DEFAULT)))
+                .getReference()
+                .child("Users/" + Account.currentUser.getUid()).get().addOnCompleteListener(
+                new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        try {
+                            for (DataSnapshot child : task.getResult().getChildren()) {
+                                child.getRef().setValue(Account.accountFirebase);
+                            }
+                        } catch (Exception ex) {
+                            String str = ex.getMessage();
+                        }
+                    }
+                });
     }
 }

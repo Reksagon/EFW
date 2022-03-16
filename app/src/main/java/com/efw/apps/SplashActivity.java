@@ -1,5 +1,7 @@
 package com.efw.apps;
 
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
+
 import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
@@ -7,25 +9,28 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.efw.apps.databinding.ActivitySplashBinding;
 import com.efw.apps.ui.account.Account;
 import com.efw.apps.ui.account.AccountAPP;
 import com.efw.apps.ui.account.AccountFirebase;
+import com.efw.apps.ui.account.MyApplication;
 import com.efw.apps.ui.exercises.Date;
 import com.efw.apps.ui.exercises.Day;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -59,6 +64,8 @@ public class SplashActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+
+    private static final long COUNTER_TIME = 0;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -113,6 +120,13 @@ public class SplashActivity extends AppCompatActivity {
         mControlsView = binding.fullscreenContentControls;
         mContentView = binding.fullscreenContent;
 
+        Locale myLocale = new Locale("es");
+
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
         Account.mAuth = FirebaseAuth.getInstance();
         Account.currentUser = Account.mAuth.getCurrentUser();
         FirebaseApp.initializeApp(this);
@@ -147,6 +161,43 @@ public class SplashActivity extends AppCompatActivity {
         delayedHide(100);
     }
 
+    private void createTimer(long seconds) {
+
+        CountDownTimer countDownTimer =
+                new CountDownTimer(seconds * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+
+                        Application application = getApplication();
+
+                        // If the application is not an instance of MyApplication, log an error message and
+                        // start the MainActivity without showing the app open ad.
+                        if (!(application instanceof MyApplication)) {
+                            Log.e("LOG_TAG", "Failed to cast application to MyApplication.");
+                            startMainActivity();
+                            return;
+                        }
+
+                        // Show the app open ad.
+                        ((MyApplication) application)
+                                .showAdIfAvailable(
+                                        SplashActivity.this,
+                                        new MyApplication.OnShowAdCompleteListener() {
+                                            @Override
+                                            public void onShowAdComplete() {
+                                                startMainActivity();
+                                            }
+                                        });
+                    }
+                };
+        countDownTimer.start();
+    }
 
     private void hide() {
         // Hide UI first
@@ -293,7 +344,18 @@ public class SplashActivity extends AppCompatActivity {
                                     calendar = Calendar.getInstance();
                                 }
                                 Account.accountFirebase.setLast_date_online(new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)));
-                                Account.saveAccount();
+                                Account.saveAccountDays();
+
+                                if(!Account.accountFirebase.isNight_mode())
+                                {
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                                    MainActivity.mode = false;
+                                }
+                                else
+                                {
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                                    MainActivity.mode = true;
+                                }
                             }
                             else {
 
@@ -340,7 +402,12 @@ public class SplashActivity extends AppCompatActivity {
                                         dayArrayList);
 
                             }
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            if(accountFirebase.isPremium())
+                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            else
+                            {
+                                createTimer(COUNTER_TIME);
+                            }
                         } catch (Exception ex) {
                             String str = ex.getMessage();
                             if(str.equals("Client is offline"))
@@ -364,5 +431,10 @@ public class SplashActivity extends AppCompatActivity {
 //                        .into(binding.imageView13);
 //            }
         }
+    }
+
+    public void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        this.startActivity(intent);
     }
 }

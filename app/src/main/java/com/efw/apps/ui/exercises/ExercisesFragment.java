@@ -1,6 +1,7 @@
 package com.efw.apps.ui.exercises;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -9,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.efw.apps.R;
 import com.efw.apps.databinding.FragmentExercisesBinding;
 import com.efw.apps.ui.account.Account;
 
@@ -32,7 +36,7 @@ public class ExercisesFragment extends Fragment {
     TextToSpeech textToSpeech = null;
     ArrayList<Exercise> data = new ArrayList<Exercise>();
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ExercisesViewModel dashboardViewModel =
@@ -44,16 +48,16 @@ public class ExercisesFragment extends Fragment {
 
         binding.progressView1.setProgress(15);
         ArrayList<Exercise> data = new ArrayList<Exercise>();
-        data.add(new Exercise("Поднятие нижней губы"));
-        data.add(new Exercise("Подъем подбородка"));
-        data.add(new Exercise("Поцелуй жирафа"));
-        data.add(new Exercise("Опускание губ"));
-        data.add(new Exercise("Подтягивание щёк"));
-        data.add(new Exercise("Письмо в воздухе"));
-        data.add(new Exercise("Подъем головы"));
-        data.add(new Exercise("Заполненный воздухом"));
-        data.add(new Exercise("Выпячивание подбородка"));
-        data.add(new Exercise("Ещё раз давим на подбородок"));
+        data.add(new Exercise(getActivity().getString(R.string.ex_1)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_2)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_3)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_4)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_5)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_6)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_7)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_8)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_9)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_10)));
 
 
         if(!Account.flag) {
@@ -106,6 +110,23 @@ public class ExercisesFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
+            }
+        });
+
+        float day = 100 - Account.accountAPP.current_training_day;
+        binding.progressView1.setProgress(Account.accountAPP.current_training_day);
+        binding.textView2.setText(getActivity().getString(R.string.yet) + " " + (int)day + " " + getActivity().getString(R.string.yet_day));
+
+        binding.dayExerciceStart.setText(getActivity().getText(R.string.day) + " " + Account.accountAPP.current_training_day);
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true ) {
+            @Override
+            @MainThread
+            public void handleOnBackPressed() {
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
             }
         });
         return root;

@@ -2,24 +2,29 @@ package com.efw.apps.ui.exercises;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.efw.apps.MainActivity;
 import com.efw.apps.R;
-import com.efw.apps.databinding.ExerciseDayItemBinding;
 import com.efw.apps.databinding.FragmentExercisesBinding;
 import com.efw.apps.databinding.LayoutExersiceItemBinding;
 import com.efw.apps.ui.account.Account;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +42,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
     public int exercice_time = 1, rest_time = 1;
 
     Activity activity;
+    private InterstitialAd mInterstitialAd;
 
     public ExerciesAdapter(ArrayList<Exercise> data, RecyclerView recyclerView, Activity context, FragmentExercisesBinding binding){
         this.data = data;
@@ -50,6 +56,35 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
         });
         activity = context;
         this.fragmentExercisesBinding = binding;
+
+        if(!Account.accountFirebase.isPremium())
+            loadAd();
+
+    }
+
+    void loadAd()
+    {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(activity,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                        loadAd();
+                    }
+
+
+                });
     }
 
     @Override
@@ -83,6 +118,15 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
 
         public void bind(int pos)
         {
+            if(pos == 0 && !Account.accountFirebase.isPremium())
+            {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(activity);
+                    loadAd();
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
+            }
             binding.nameExersice.setText(data.get(pos).getName());
             if(pos == data.size()-1)
                 binding.nextExerciceBttn.setText("End");
@@ -196,7 +240,14 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                     }
                     else
                     {
-
+                        if(!Account.accountFirebase.isPremium()) {
+                            if (mInterstitialAd != null) {
+                                mInterstitialAd.show(activity);
+                                loadAd();
+                            } else {
+                                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                            }
+                        }
                         fragmentExercisesBinding.exercicesList.setVisibility(View.GONE);
                         fragmentExercisesBinding.exerciceLogo.setVisibility(View.GONE);
                         fragmentExercisesBinding.illustration.setVisibility(View.VISIBLE);
@@ -221,7 +272,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                         Account.accountFirebase.setCount_training(Account.accountFirebase.getCount_training()+1);
                         Account.accountFirebase.setCurrent_training_day(Account.accountAPP.current_training_day+1);
                         Account.accountFirebase.setTime_training(Account.accountFirebase.getTime_training() + 10);
-                        Account.saveAccount();
+                        Account.saveAccountDays();
                         fragmentExercisesBinding.dayList.getAdapter().notifyDataSetChanged();
                     }
                 }

@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat_regular"
                     android:text="@string/your_profile"
                     android:textColor="?attr/colorPrimaryVariant"
