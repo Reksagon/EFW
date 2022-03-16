@@ -29,7 +29,7 @@ import java.util.Date;
 public class MyApplication extends Application
         implements ActivityLifecycleCallbacks, LifecycleObserver {
 
-    private AppOpenAdManager appOpenAdManager;
+    public static AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
 
     @Override
@@ -52,7 +52,8 @@ public class MyApplication extends Application
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     protected void onMoveToForeground() {
         // Show the ad (if available) when the app moves to foreground.
-        appOpenAdManager.showAdIfAvailable(currentActivity);
+            appOpenAdManager.showAdIfAvailable(currentActivity);
+
     }
 
     /** ActivityLifecycleCallback methods. */
@@ -65,9 +66,11 @@ public class MyApplication extends Application
         // SDK or another activity class implemented by a third party mediation partner. Updating the
         // currentActivity only when an ad is not showing will ensure it is not an ad activity, but the
         // one that shows the ad.
+
         if (!appOpenAdManager.isShowingAd) {
             currentActivity = activity;
         }
+
     }
 
     @Override
@@ -96,7 +99,9 @@ public class MyApplication extends Application
             @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
         // We wrap the showAdIfAvailable to enforce that other classes only interact with MyApplication
         // class.
-        appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+        if(!Account.accountFirebase.isPremium()) {
+            appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+        }
     }
 
     /**
@@ -192,6 +197,7 @@ public class MyApplication extends Application
          * @param activity the activity that shows the app open ad
          */
         private void showAdIfAvailable(@NonNull final Activity activity) {
+
             showAdIfAvailable(
                     activity,
                     new OnShowAdCompleteListener() {
@@ -200,6 +206,7 @@ public class MyApplication extends Application
                             // Empty because the user will go back to the activity that shows the ad.
                         }
                     });
+
         }
 
         /**
@@ -265,7 +272,9 @@ public class MyApplication extends Application
                     });
 
             isShowingAd = true;
-            appOpenAd.show(activity);
+            if(!Account.accountFirebase.isPremium()) {
+                appOpenAd.show(activity);
+            }
         }
     }
 }

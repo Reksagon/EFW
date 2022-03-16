@@ -120,12 +120,6 @@ public class SplashActivity extends AppCompatActivity {
         mControlsView = binding.fullscreenContentControls;
         mContentView = binding.fullscreenContent;
 
-        Locale myLocale = new Locale("es");
-
-        Locale.setDefault(myLocale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = myLocale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
         Account.mAuth = FirebaseAuth.getInstance();
         Account.currentUser = Account.mAuth.getCurrentUser();
@@ -402,8 +396,16 @@ public class SplashActivity extends AppCompatActivity {
                                         dayArrayList);
 
                             }
-                            if(accountFirebase.isPremium())
+
+                            Locale myLocale = new Locale(Account.accountFirebase.getLanguage());
+
+                            Locale.setDefault(myLocale);
+                            android.content.res.Configuration config = new android.content.res.Configuration();
+                            config.locale = myLocale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            if(Account.accountFirebase.isPremium()) {
                                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            }
                             else
                             {
                                 createTimer(COUNTER_TIME);
