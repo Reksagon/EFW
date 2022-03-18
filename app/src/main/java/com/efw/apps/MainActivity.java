@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setLanguage();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         binding.imgMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         Account.accountFirebase.setNight_mode(true);
                         Account.saveAccount();
                     }
+                    setLanguage();
                 }
             }
         });
@@ -112,4 +114,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setLanguage()
+    {
+        Locale myLocale = new Locale(Account.accountFirebase.getLanguage());
+
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
 }

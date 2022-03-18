@@ -185,22 +185,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buy_lay"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_crown"
-                    android:translationZ="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/buy_pro_bttn"
-                    app:layout_constraintEnd_toEndOf="@+id/buy_pro_bttn"
-                    app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toStartOf="@+id/buy_pro_bttn"
-                    app:layout_constraintTop_toTopOf="@+id/buy_pro_bttn"
-                    app:layout_constraintVertical_bias="0.45" />
 
                 <com.karacce.buttom.Buttom
                     android:id="@+id/buy_pro_bttn"

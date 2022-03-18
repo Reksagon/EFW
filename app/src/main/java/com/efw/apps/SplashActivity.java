@@ -345,12 +345,20 @@ public class SplashActivity extends AppCompatActivity {
                                 {
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                                     MainActivity.mode = false;
+
                                 }
                                 else
                                 {
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                                     MainActivity.mode = true;
                                 }
+
+//                                Locale myLocale = new Locale(Account.accountFirebase.getLanguage());
+//
+//                                Locale.setDefault(myLocale);
+//                                android.content.res.Configuration config = new android.content.res.Configuration();
+//                                config.locale = myLocale;
+//                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
                             }
                             else {
 
@@ -379,7 +387,7 @@ public class SplashActivity extends AppCompatActivity {
                                         new Date(tmp.get(Calendar.YEAR), tmp.get(Calendar.MONTH), tmp.get(Calendar.DAY_OF_MONTH)),
                                         false,
                                         night_mode,
-                                        "ru");
+                                        Locale.getDefault().getLanguage());
 
                                 Account.accountFirebase = accountFirebase_new;
                                 task.getResult().getRef().push().setValue(accountFirebase_new);

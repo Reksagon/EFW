@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment {
         });
 
         if(Account.accountFirebase.isPremium())
-            binding.buyProBttn.setVisibility(View.GONE);
+            binding.buyLay.setVisibility(View.GONE);
 
         binding.userName.setText(Account.userName);
         binding.userEmail.setText(Account.userEmail);
