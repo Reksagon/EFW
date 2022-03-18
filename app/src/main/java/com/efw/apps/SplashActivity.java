@@ -353,12 +353,6 @@ public class SplashActivity extends AppCompatActivity {
                                     MainActivity.mode = true;
                                 }
 
-//                                Locale myLocale = new Locale(Account.accountFirebase.getLanguage());
-//
-//                                Locale.setDefault(myLocale);
-//                                android.content.res.Configuration config = new android.content.res.Configuration();
-//                                config.locale = myLocale;
-//                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
                             }
                             else {
 

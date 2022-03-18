@@ -29,7 +29,9 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.efw.apps.MainActivity;
 import com.efw.apps.R;
+import com.efw.apps.SplashActivity;
 import com.efw.apps.databinding.FragmentProfileBinding;
 import com.efw.apps.ui.account.Account;
 import com.google.android.play.core.review.ReviewInfo;
@@ -255,7 +257,7 @@ public class ProfileFragment extends Fragment {
 
         Account.accountFirebase.setLanguage(locale);
         Account.saveAccount();
-        getActivity().recreate();
+        startActivity(new Intent(getActivity(), SplashActivity.class));
     }
 
 
