@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.efw.apps.MainActivity;
 import com.efw.apps.R;
 import com.efw.apps.databinding.ExerciseDayItemBinding;
 import com.efw.apps.databinding.FragmentExercisesBinding;
@@ -28,13 +29,14 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
     Activity activity;
     FragmentExercisesBinding fragmentExercisesBinding;
     TextToSpeech textToSpeech;
-    String speak_text;
+    ArrayList<Exercise> data_exercise;
 
-    public DayAdapter(Activity activity, ArrayList<Day> data, FragmentExercisesBinding fragmentExercisesBinding, String speak_text){
+    public DayAdapter(Activity activity, ArrayList<Day> data, FragmentExercisesBinding fragmentExercisesBinding,
+                      ArrayList<Exercise> data_exercise){
         this.data = data;
         this.activity = activity;
         this.fragmentExercisesBinding = fragmentExercisesBinding;
-        this.speak_text = speak_text;
+        this.data_exercise = data_exercise;
     }
 
     @Override
@@ -99,10 +101,16 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                             textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
                                 @Override
                                 public void onInit(int i) {
+                                    MainActivity.timer = true;
                                     Locale language = new Locale(Account.accountFirebase.getLanguage());
                                     textToSpeech.setLanguage(language);
                                     String utteranceId = UUID.randomUUID().toString();
-                                    textToSpeech.speak(speak_text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+                                    ExerciesAdapter exerciesAdapter = (ExerciesAdapter) fragmentExercisesBinding.exercicesList.getAdapter();
+                                    textToSpeech.speak(data_exercise.get(exerciesAdapter.current).getName(), TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+                                    if(exerciesAdapter.current == 1)
+                                        Account.showDialog(activity, activity.getString(R.string.stund));
+                                    else
+                                        Account.showDialog(activity, activity.getString(R.string.sid));
                                 }
                             });
                         }

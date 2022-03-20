@@ -58,4 +58,7 @@
     <string name="ex_9">Protrusión del mentón</string>
     <string name="ex_10">Presión de barbilla de nuevo</string>
     <string name="select_laguage">Elige lengua</string>
+    <string name="sid">Este ejercicio debe realizarse estrictamente sentado para obtener el efecto deseado</string>
+    <string name="stund">Este ejercicio debe realizarse estrictamente de pie para obtener el efecto deseado</string>
+    <string name="warning">Advertencia</string>
 </resources>

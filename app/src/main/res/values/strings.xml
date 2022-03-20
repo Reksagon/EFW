@@ -57,4 +57,7 @@
     <string name="ex_9">Chin Protrusion</string>
     <string name="ex_10">Chin pressure again</string>
     <string name="select_laguage">Choose language</string>
+    <string name="sid">This exercise must be performed strictly while sitting to get the desired effect</string>
+    <string name="stund">This exercise must be performed strictly while standing to get the desired effect</string>
+    <string name="warning">Warning</string>
 </resources>

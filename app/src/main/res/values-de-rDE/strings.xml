@@ -58,4 +58,7 @@
     <string name="ex_9">Kinnvorsprung</string>
     <string name="ex_10">Kinndruck wieder</string>
     <string name="select_laguage">Sprache wählen</string>
+    <string name="sid">Diese Übung muss unbedingt im Sitzen durchgeführt werden, um den gewünschten Effekt zu erzielen</string>
+    <string name="stund">Diese Übung muss unbedingt im Stehen ausgeführt werden, um den gewünschten Effekt zu erzielen</string>
+    <string name="warning">Warnung</string>
 </resources>

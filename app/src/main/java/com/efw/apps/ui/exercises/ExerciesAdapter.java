@@ -34,12 +34,12 @@ import java.util.concurrent.TimeUnit;
 
 public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.LinearViewHolder>{
     ArrayList<Exercise> data;
-    private int current = 0;
+    public int current = 0;
     public RecyclerView recyclerView;
     private TextToSpeech textToSpeech;
     FragmentExercisesBinding fragmentExercisesBinding;
     AsyncTask<Void, Integer, Void> timer, rest;
-    public int exercice_time = 1, rest_time = 1;
+    public int exercice_time = 60, rest_time = 30;
 
     Activity activity;
     private InterstitialAd mInterstitialAd;
@@ -65,7 +65,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
     void loadAd()
     {
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity,"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(activity,"ca-app-pub-2180603710226725/1607543211", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -118,6 +118,12 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
 
         public void bind(int pos)
         {
+            if(fragmentExercisesBinding.exercicesList.getVisibility() == View.VISIBLE) {
+                if (pos == 1)
+                    Account.showDialog(activity, activity.getString(R.string.stund));
+                else
+                    Account.showDialog(activity, activity.getString(R.string.sid));
+            }
             if(pos == 0 && !Account.accountFirebase.isPremium())
             {
                 if (mInterstitialAd != null) {

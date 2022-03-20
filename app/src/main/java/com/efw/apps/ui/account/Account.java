@@ -1,5 +1,7 @@
 package com.efw.apps.ui.account;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
@@ -7,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.efw.apps.MainActivity;
+import com.efw.apps.R;
 import com.efw.apps.SplashActivity;
 import com.efw.apps.ui.exercises.Date;
 import com.efw.apps.ui.exercises.Day;
@@ -34,6 +38,7 @@ public class Account {
     public static AccountFirebase accountFirebase;
     public static String URL = "aHR0cHM6Ly9lZnctYXBwcy1kZWZhdWx0LXJ0ZGIuZmlyZWJhc2Vpby5jb20v";
     public static boolean flag = false;
+    public static boolean dialog = false;
 
     public static void saveAccountDays()
     {
@@ -79,5 +84,24 @@ public class Account {
                         }
                     }
                 });
+    }
+
+    public static void showDialog(Context context, String string)
+    {
+        if(!dialog) {
+            new AlertDialog.Builder(context)
+                    .setTitle(context.getString(R.string.warning))
+                    .setMessage(string)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Account.dialog = false;
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(false)
+                    .show();
+            dialog = true;
+        }
+
     }
 }

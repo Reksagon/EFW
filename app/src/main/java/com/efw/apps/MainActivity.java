@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.efw.apps.ui.account.Account;
+import com.efw.apps.ui.exercises.ExercisesFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -113,6 +114,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(timer)
+        {
+            ExercisesFragment.startMenu();
+            findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
+            MainActivity.timer = false;
+        }
+        else
+            super.onBackPressed();
+    }
 
     public void setLanguage()
     {

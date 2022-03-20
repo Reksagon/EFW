@@ -58,4 +58,7 @@
     <string name="ex_9">Випинання підборіддя</string>
     <string name="ex_10">Ще раз давимо на підборіддя</string>
     <string name="select_laguage">Виберіть мову</string>
+    <string name="sid">Цю вправу потрібно виконувати строго сидячи, щоб отримати бажаний ефект</string>
+    <string name="stund">Цю вправу потрібно виконувати строго стоячи, щоб отримати бажаний ефект</string>
+    <string name="warning">Попередження</string>
 </resources>

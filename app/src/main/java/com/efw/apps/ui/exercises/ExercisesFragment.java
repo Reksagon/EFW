@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class ExercisesFragment extends Fragment {
 
-    private FragmentExercisesBinding binding;
+    private static FragmentExercisesBinding binding;
     private ExerciesAdapter adapter;
     private DayAdapter dayAdapter;
     ArrayList<Exercise> data = new ArrayList<Exercise>();
@@ -96,7 +96,7 @@ public class ExercisesFragment extends Fragment {
         binding.exercicesList.setLayoutManager(linearLayout);
         binding.exercicesList.setAdapter(adapter);
 
-        dayAdapter = new DayAdapter(getActivity(), Account.accountAPP.array_days_training, binding, data.get(0).getName());
+        dayAdapter = new DayAdapter(getActivity(), Account.accountAPP.array_days_training, binding, data);
         dayAdapter.setHasStableIds(false);
         LinearLayoutManager linearLayout_day = new LinearLayoutManager(getActivity());
         linearLayout_day.setOrientation(RecyclerView.VERTICAL);
@@ -131,6 +131,13 @@ public class ExercisesFragment extends Fragment {
         return root;
     }
 
+    public static void startMenu()
+    {
+        binding.dayList.setVisibility(View.VISIBLE);
+        binding.startLogo.setVisibility(View.VISIBLE);
+        binding.exerciceLogo.setVisibility(View.GONE);
+        binding.exercicesList.setVisibility(View.GONE);
+    }
 
     @Override
     public void onDestroyView() {

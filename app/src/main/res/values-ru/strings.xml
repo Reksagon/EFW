@@ -47,7 +47,6 @@
     <string name="share_text">Приложение 10 эффективных упражнений для идеальной формы лица, скачивай - </string>
     <string name="yet">Ещё</string>
     <string name="yet_day">д.</string>
-
     <string name="ex_1">Поднятие нижней губы</string>
     <string name="ex_2">Подъем подбородка</string>
     <string name="ex_3">Поцелуй жирафа</string>
@@ -59,4 +58,8 @@
     <string name="ex_9">Выпячивание подбородка</string>
     <string name="ex_10">Ещё раз давим на подбородок</string>
     <string name="select_laguage">Выберите язык</string>
+    <string name="sid">Это упражнение нужно выполнять строго сидя чтобы получить желаемый эффект</string>
+    <string name="stund">Это упражнение нужно выполнять строго стоя чтобы получить желаемый эффект</string>
+    <string name="warning">Предупреждение</string>
+
 </resources>

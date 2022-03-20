@@ -58,4 +58,7 @@
     <string name="ex_9">턱 돌출</string>
     <string name="ex_10">다시 턱 압박</string>
     <string name="select_laguage">언어 선택</string>
+    <string name="sid">원하는 효과를 얻으려면 앉아 있는 동안 이 운동을 엄격하게 수행해야 합니다.</string>
+    <string name="stund">원하는 효과를 얻으려면 서 있는 동안 이 운동을 엄격하게 수행해야 합니다.</string>
+    <string name="warning">경고</string>
 </resources>
