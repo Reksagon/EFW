@@ -2,6 +2,7 @@ package com.efw.apps.ui.exercises;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -137,6 +138,8 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
             if(pos == data.size()-1)
                 binding.nextExerciceBttn.setText("End");
 
+            setAnim(pos);
+
             binding.skipBttn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -149,6 +152,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                 }
             });
 
+
             binding.startExerciceBttn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -160,6 +164,7 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                             super.onPostExecute(unused);
                             //binding.nextExerciceBttn.setVisibility(View.VISIBLE);
                             binding.nameExersice.setText(activity.getString(R.string.rest));
+                            binding.animEx.pause();
                             rest = new AsyncTask<Void, Integer, Void>() {
                                 @Override
                                 protected void onPostExecute(Void unused) {
@@ -283,6 +288,94 @@ public class ExerciesAdapter extends RecyclerView.Adapter<ExerciesAdapter.Linear
                     }
                 }
             });
+
+
         }
+
+        private void setAnim(int pos)
+        {
+            switch (pos)
+            {
+                case 0:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_1_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_1).execute();
+                    break;
+                case 1:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_2_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_2).execute();
+                    break;
+                case 2:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_3_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_3).execute();
+                    break;
+                case 3:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_4_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_4).execute();
+                    break;
+                case 4:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_5_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_5).execute();
+                    break;
+                case 5:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_6_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_6).execute();
+                    break;
+                case 6:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_7_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_7).execute();
+                    break;
+                case 7:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_8_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_8).execute();
+                    break;
+                case 8:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_9_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_9).execute();
+                    break;
+                case 9:
+                    binding.animEx.setVideoPath("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_10_start);
+                    binding.animEx.start();
+                    setEx("android.resource://" + activity.getPackageName() + "/" + R.raw.ex_10).execute();
+                    break;
+            }
+        }
+
+        private AsyncTask<Void,Void, Void> setEx(String str)
+        {
+            return new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPostExecute(Void unused) {
+                    super.onPostExecute(unused);
+                    binding.animEx.setVideoPath(str);
+                    binding.animEx.start();
+                    binding.animEx.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.setLooping(true);
+                        }
+                    });
+                }
+
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+        }
+
     }
 }
