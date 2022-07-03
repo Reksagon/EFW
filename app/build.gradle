@@ -82,6 +82,10 @@ dependencies {
     implementation('pl.coreorb:selection-dialogs:0.9.1')
     //Billing
     implementation 'com.android.billingclient:billing:1.2'
+    //Gif
+    //implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

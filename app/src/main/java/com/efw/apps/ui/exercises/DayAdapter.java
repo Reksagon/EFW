@@ -28,7 +28,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
     ArrayList<Day> data;
     Activity activity;
     FragmentExercisesBinding fragmentExercisesBinding;
-    TextToSpeech textToSpeech;
+    public static TextToSpeech textToSpeech;
     ArrayList<Exercise> data_exercise;
 
     public DayAdapter(Activity activity, ArrayList<Day> data, FragmentExercisesBinding fragmentExercisesBinding,
@@ -96,7 +96,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                             fragmentExercisesBinding.dayList.setVisibility(View.GONE);
                             fragmentExercisesBinding.startLogo.setVisibility(View.GONE);
                             fragmentExercisesBinding.exercicesList.setVisibility(View.VISIBLE);
-                            fragmentExercisesBinding.exerciceLogo.setVisibility(View.VISIBLE);
+                            //fragmentExercisesBinding.exerciceLogo.setVisibility(View.VISIBLE);
                             activity.findViewById(R.id.nav_view).setVisibility(View.GONE);
                             textToSpeech = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
                                 @Override
@@ -106,7 +106,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHoler>{
                                     textToSpeech.setLanguage(language);
                                     String utteranceId = UUID.randomUUID().toString();
                                     ExerciesAdapter exerciesAdapter = (ExerciesAdapter) fragmentExercisesBinding.exercicesList.getAdapter();
-                                    textToSpeech.speak(data_exercise.get(exerciesAdapter.current).getName(), TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+                                    textToSpeech.speak(data_exercise.get(exerciesAdapter.current).getSpeak_text(), TextToSpeech.QUEUE_ADD, null, utteranceId);
                                     if(exerciesAdapter.current == 1)
                                         Account.showDialog(activity, activity.getString(R.string.stund));
                                     else

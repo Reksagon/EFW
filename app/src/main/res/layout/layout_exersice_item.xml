@@ -14,14 +14,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <VideoView
+            <ImageView
                 android:id="@+id/anim_ex"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
-                android:foregroundGravity="center"
                 android:layout_marginTop="25dp"
-                app:srcCompat="@drawable/ill" />
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:foregroundGravity="center" />
 
             <TextView
                 android:id="@+id/name_exersice"
@@ -77,7 +78,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/circularProgressView"
                     app:layout_constraintEnd_toEndOf="@+id/circularProgressView"
                     app:layout_constraintStart_toStartOf="@+id/circularProgressView"
-                    app:layout_constraintTop_toTopOf="@+id/circularProgressView" />
+                    app:layout_constraintTop_toTopOf="@+id/circularProgressView"
+                    app:layout_constraintVertical_bias="0.39999998" />
 
                 <ImageView
                     android:id="@+id/imageView9"
@@ -91,23 +93,64 @@
                     app:layout_constraintTop_toBottomOf="@+id/time_txt"
                     app:layout_constraintVertical_bias="0.0"
                     app:srcCompat="@drawable/ic_pause" />
+
+                <ImageButton
+                    android:id="@+id/bttn_pause"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitXY"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/circularProgressView"
+                    app:layout_constraintStart_toStartOf="@+id/circularProgressView"
+                    app:layout_constraintTop_toBottomOf="@+id/time_txt"
+                    app:layout_constraintVertical_bias="0.14999998"
+                    app:srcCompat="@drawable/ic_pause" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.karacce.buttom.Buttom
-                android:id="@+id/next_exercice_bttn"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:text="@string/next"
-                android:textColor="#FFFFFF"
-                android:visibility="gone"
-                app:buttom_corner_radius="12dp"
-                app:buttom_gradient_end_color="#3A7BD5"
-                app:buttom_gradient_orientation="left_right"
-                app:buttom_gradient_start_color="#00D2FF"
-                app:buttom_gradient_type="linear"
-                app:buttom_type="gradient" />
+            <LinearLayout
+                android:id="@+id/next_liner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.karacce.buttom.Buttom
+                    android:id="@+id/previous_exercice_bttn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/previous"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:buttom_corner_radius="12dp"
+                    app:buttom_gradient_end_color="#3A7BD5"
+                    app:buttom_gradient_orientation="left_right"
+                    app:buttom_gradient_start_color="#00D2FF"
+                    app:buttom_gradient_type="linear"
+                    app:buttom_type="gradient" />
+
+                <com.karacce.buttom.Buttom
+                    android:id="@+id/next_exercice_bttn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/next"
+                    android:textColor="#FFFFFF"
+                    android:visibility="visible"
+                    app:buttom_corner_radius="12dp"
+                    app:buttom_gradient_end_color="#3A7BD5"
+                    app:buttom_gradient_orientation="right_left"
+                    app:buttom_gradient_start_color="#00D2FF"
+                    app:buttom_gradient_type="linear"
+                    app:buttom_type="gradient" />
+            </LinearLayout>
 
             <com.karacce.buttom.Buttom
                 android:id="@+id/start_exercice_bttn"

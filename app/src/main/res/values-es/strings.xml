@@ -61,4 +61,16 @@
     <string name="sid">Este ejercicio debe realizarse estrictamente sentado para obtener el efecto deseado</string>
     <string name="stund">Este ejercicio debe realizarse estrictamente de pie para obtener el efecto deseado</string>
     <string name="warning">Advertencia</string>
+    <string name="first_results">Primeros resultados después de 30 días</string>
+    <string name="previous">Anterior</string>
+    <string name="speak_text_ex1">Elevación del labio inferior: para el primer ejercicio, debe sentarse e inclinar la cabeza hacia atrás. Ahora imagine que necesita alcanzar el techo con el labio inferior. Saque el labio inferior lo más que pueda y mantenga presionado durante diez segundos, haga una breve pausa y repita</string>
+    <string name="speak_text_ex2">Elevación de la barbilla: para comenzar, cruce los brazos sobre el pecho, párese derecho y levante lentamente la barbilla cuando llegue al límite, respire hondo y cuente hasta diez, luego regrese lentamente a la posición inicial </string>
+    <string name="speak_text_ex3">Beso de jirafa: levanta la cabeza y mira al techo, extiende ligeramente la mandíbula inferior hacia adelante y frunce los labios como si estuvieras a punto de besar a alguien. Mantén esta posición durante diez segundos y luego regresa a la posición inicial. </string>
+    <string name="speak_text_ex5">Extracción de mejillas: gire la cabeza hacia la izquierda y tire de la mandíbula inferior hacia adelante mientras tensa los músculos del cuello. Debe sentir que los músculos del lado izquierdo se estiran, luego gire la cabeza hacia la derecha y haga lo mismo. misma repetición cinco veces en cada lado</string>
+    <string name="speak_text_ex4">Labios inferiores: es importante mantener la cabeza recta durante el ejercicio, bajar las comisuras de los labios y volver a la posición inicial</string>
+    <string name="speak_text_ex6">Escribir en el aire: siéntate derecho y sostén el lápiz entre tus labios, ahora intenta escribir tu nombre en el aire</string>
+    <string name="speak_text_ex7">Levantamiento de la cabeza: incline la cabeza hacia la derecha tratando de alcanzar el hombro con la oreja, presione la mano derecha en el lado derecho de la cabeza, resistiendo la cabeza y el cuello durante diez segundos y repita en el otro lado </string>
+    <string name="speak_text_ex8">Lleno de aire: respire profundamente cierre los labios con fuerza e inhale una boca llena de aire coloque las manos en las mejillas para que los dedos cubran las orejas ahora comience a presionar las mejillas creando resistencia muscular hacer diez segundos y luego repite </string>
+    <string name="speak_text_ex9">Protrusión de la barbilla: primero abra la boca y cubra los dientes con los labios, ahora empuje la mandíbula inferior hacia adelante y presione el dedo sobre la barbilla. Resista la presión de los dedos con los músculos faciales tensos y relajados.</string>
+    <string name="speak_text_ex10">Presión de la barbilla nuevamente: primero coloque ambos puños debajo de la barbilla y presione la lengua hacia la parte inferior de la boca junto a los dientes inferiores, presione la barbilla con los puños contra la presión con la ayuda de la lengua</string>
 </resources>

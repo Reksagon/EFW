@@ -13,6 +13,7 @@
     <string name="count_exercice">10 exercises</string>
     <string name="time_exercice">10 min.</string>
     <string name="next">Next</string>
+    <string name="previous">Previous</string>
     <string name="skip">Skip</string>
     <string name="need_rest">You need to rest</string>
     <string name="okay">Okay ;)</string>
@@ -60,4 +61,15 @@
     <string name="sid">This exercise must be performed strictly while sitting to get the desired effect</string>
     <string name="stund">This exercise must be performed strictly while standing to get the desired effect</string>
     <string name="warning">Warning</string>
+    <string name="first_results">First results after 30 days</string>
+    <string name="speak_text_ex1">Lower lip raise - for the first exercise you need to sit down and tilt your head back now imagine that you need to reach the ceiling with your lower lip stick out your lower lip as far as you can and hold for ten seconds pause briefly and repeat</string>
+    <string name="speak_text_ex2">Chin Raise - to begin, cross your arms over your chest, stand straight and slowly lift your chin when you reach the limit, take a long breath and count to ten, then slowly return to the starting position</string>
+    <string name="speak_text_ex3">Giraffe Kiss - raise your head up and look at the ceiling slightly extend your lower jaw forward and purse your lips as if you are about to kiss someone hold this position for ten seconds then return to the starting position</string>
+    <string name="speak_text_ex5">Cheek Pull-Ups - Turn your head to the left and pull your lower jaw forward while tensing your neck muscles you should feel the muscles on the left side stretch then turn your head to the right and do the same repeat five times on each side</string>
+    <string name="speak_text_ex4">Lower lips - it is important to keep your head straight during the exercise, lower the corners of the lips down and return to the starting position</string>
+    <string name="speak_text_ex6">Writing in the air - sit up straight and hold the pencil between your lips now try writing your name in the air</string>
+    <string name="speak_text_ex7">Head lift - tilt your head to the right trying to reach your shoulder with your ear press your right hand on the right side of your head resisting your head and neck for ten seconds and repeat on the other side</string>
+    <string name="speak_text_ex8">Filled with air - take a deep breath close your lips tightly and inhale a full mouth of air put your hands on your cheeks so that your fingers cover your ears now start pressing on your cheeks creating muscle resistance do ten seconds then repeat </string>
+    <string name="speak_text_ex9">Chin protrusion - first open your mouth and cover your teeth with your lips now push your lower jaw forward and press your finger on your chin resist finger pressure with your facial muscles tensing and relaxing them</string>
+    <string name="speak_text_ex10">Chin pressure again - first put both fists under the chin and press the tongue to the bottom of the mouth next to the lower teeth press the chin with the fists against the pressure with the help of the tongue</string>
 </resources>

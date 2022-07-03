@@ -47,16 +47,16 @@ public class ExercisesFragment extends Fragment {
 
         binding.progressView1.setProgress(15);
         ArrayList<Exercise> data = new ArrayList<Exercise>();
-        data.add(new Exercise(getActivity().getString(R.string.ex_1)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_2)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_3)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_4)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_5)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_6)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_7)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_8)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_9)));
-        data.add(new Exercise(getActivity().getString(R.string.ex_10)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_1),getActivity().getString(R.string.speak_text_ex1) ));
+        data.add(new Exercise(getActivity().getString(R.string.ex_2), getActivity().getString(R.string.speak_text_ex2)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_3), getActivity().getString(R.string.speak_text_ex3)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_4), getActivity().getString(R.string.speak_text_ex4)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_5), getActivity().getString(R.string.speak_text_ex5)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_6), getActivity().getString(R.string.speak_text_ex6)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_7), getActivity().getString(R.string.speak_text_ex7)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_8), getActivity().getString(R.string.speak_text_ex8)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_9), getActivity().getString(R.string.speak_text_ex9)));
+        data.add(new Exercise(getActivity().getString(R.string.ex_10), getActivity().getString(R.string.speak_text_ex10)));
 
 
         if(!Account.flag) {
@@ -116,7 +116,7 @@ public class ExercisesFragment extends Fragment {
         binding.progressView1.setProgress(Account.accountAPP.current_training_day);
         binding.textView2.setText(getActivity().getString(R.string.yet) + " " + (int)day + " " + getActivity().getString(R.string.yet_day));
 
-        binding.dayExerciceStart.setText(getActivity().getText(R.string.day) + " " + Account.accountAPP.current_training_day);
+        //binding.dayExerciceStart.setText(getActivity().getText(R.string.day) + " " + Account.accountAPP.current_training_day);
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true ) {
             @Override
@@ -135,7 +135,7 @@ public class ExercisesFragment extends Fragment {
     {
         binding.dayList.setVisibility(View.VISIBLE);
         binding.startLogo.setVisibility(View.VISIBLE);
-        binding.exerciceLogo.setVisibility(View.GONE);
+        //binding.exerciceLogo.setVisibility(View.GONE);
         binding.exercicesList.setVisibility(View.GONE);
     }
 

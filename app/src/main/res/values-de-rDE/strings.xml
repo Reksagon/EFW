@@ -61,4 +61,16 @@
     <string name="sid">Diese Übung muss unbedingt im Sitzen durchgeführt werden, um den gewünschten Effekt zu erzielen</string>
     <string name="stund">Diese Übung muss unbedingt im Stehen ausgeführt werden, um den gewünschten Effekt zu erzielen</string>
     <string name="warning">Warnung</string>
+    <string name="first_results">Erste Ergebnisse nach 30 Tagen</string>
+    <string name="previous">Zurück</string>
+    <string name="speak_text_ex1">Unterlippenheben - für die erste Übung musst du dich hinsetzen und deinen Kopf nach hinten neigen. Stelle dir nun vor, dass du mit deiner Unterlippe die Decke erreichen musst, strecke deine Unterlippe so weit wie möglich aus und strecke deine Unterlippe aus 10 Sekunden halten, kurz pausieren und wiederholen</string>
+    <string name="speak_text_ex2">Chin Raise – kreuze zu Beginn deine Arme vor deiner Brust, stehe gerade und hebe langsam dein Kinn, wenn du das Limit erreichst, atme tief ein und zähle bis zehn, dann kehre langsam in die Ausgangsposition zurück </string>
+    <string name="speak_text_ex3">Giraffe Kiss - hebe deinen Kopf und schaue zur Decke, strecke deinen Unterkiefer leicht nach vorne und schürze deine Lippen, als ob du jemanden küssen würdest. Halte diese Position zehn Sekunden lang und kehre dann in die Ausgangsposition zurück </string>
+    <string name="speak_text_ex5">Wangen-Klimmzüge – Drehe deinen Kopf nach links und ziehe deinen Unterkiefer nach vorne, während du deine Nackenmuskeln anspannst. Du solltest spüren, wie sich die Muskeln auf der linken Seite dehnen, dann drehe deinen Kopf nach rechts und führe das aus dasselbe fünfmal auf jeder Seite wiederholen</string>
+    <string name="speak_text_ex4">Untere Lippen – es ist wichtig, den Kopf während der Übung gerade zu halten, die Lippenwinkel nach unten zu senken und in die Ausgangsposition zurückzukehren</string>
+    <string name="speak_text_ex6">In die Luft schreiben - setze dich gerade hin und halte den Bleistift zwischen deinen Lippen und versuche jetzt, deinen Namen in die Luft zu schreiben</string>
+    <string name="speak_text_ex7">Kopf heben - Neigen Sie Ihren Kopf nach rechts und versuchen Sie, Ihre Schulter mit Ihrem Ohr zu erreichen. Drücken Sie Ihre rechte Hand auf die rechte Seite Ihres Kopfes und widerstehen Sie Ihrem Kopf und Nacken zehn Sekunden lang und wiederholen Sie dies auf der anderen Seite </string>
+    <string name="speak_text_ex8">Mit Luft gefüllt - atme tief ein, schließe deine Lippen fest und atme einen vollen Mund voller Luft ein, lege deine Hände auf deine Wangen, so dass deine Finger deine Ohren bedecken, beginne jetzt, auf deine Wangen zu drücken, um Muskelwiderstand zu erzeugen zehn Sekunden wiederholen, dann </string>
+    <string name="speak_text_ex9">Kinnprotrusion - öffne zuerst deinen Mund und bedecke deine Zähne mit deinen Lippen, drücke jetzt deinen Unterkiefer nach vorne und drücke deinen Finger auf dein Kinn, widerstehe dem Fingerdruck, während deine Gesichtsmuskeln sie anspannen und entspannen</string>
+    <string name="speak_text_ex10">Kinndruck wieder - zuerst beide Fäuste unter das Kinn legen und die Zunge auf den Mundgrund neben die unteren Zähne drücken mit Hilfe der Zunge das Kinn mit den Fäusten gegen den Druck drücken</string>
 </resources>
