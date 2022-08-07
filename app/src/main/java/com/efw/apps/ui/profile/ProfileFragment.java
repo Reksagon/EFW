@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
@@ -130,25 +131,29 @@ public class ProfileFragment extends Fragment {
 
         mBillingClient = BillingClient.newBuilder(getActivity()).setListener(new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null) {
                     Account.accountFirebase.setPremium(true);
                     Account.saveAccount();
                 }
             }
-        }).build();
-        mBillingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if (billingResponseCode == BillingClient.BillingResponse.OK) {
-                    querySkuDetails(); //запрос о товарах
 
-                }
-            }
+        }).enablePendingPurchases()
+                .build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+
 
             @Override
             public void onBillingServiceDisconnected() {
                 //сюда мы попадем если что-то пойдет не так
+            }
+
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    querySkuDetails(); //запрос о товарах
+
+                }
             }
         });
 
@@ -269,13 +274,14 @@ public class ProfileFragment extends Fragment {
         skuDetailsParamsBuilder.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
         mBillingClient.querySkuDetailsAsync(skuDetailsParamsBuilder.build(), new SkuDetailsResponseListener() {
             @Override
-            public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-                if (responseCode == 0) {
-                    for (SkuDetails skuDetails : skuDetailsList) {
+            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> list) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    for (SkuDetails skuDetails : mSkuDetailsMap.values()) {
                         mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
                     }
                 }
             }
+
         });
     }
 
