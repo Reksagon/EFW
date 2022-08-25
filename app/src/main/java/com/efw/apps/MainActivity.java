@@ -40,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -108,7 +109,20 @@ public class MainActivity extends AppCompatActivity {
         if(Account.accountFirebase.isPremium())
         {
             binding.adView.setVisibility(View.GONE);
+            Calendar now = Calendar.getInstance();
+            Calendar premium = Calendar.getInstance();
+            String[] str = Account.accountFirebase.getLast_date_premium().split("\\.");
+            premium.set(Calendar.DAY_OF_MONTH, Integer.parseInt(str[0]));
+            premium.set(Calendar.MONTH, Integer.parseInt(str[1]));
+            premium.set(Calendar.YEAR, Integer.parseInt(str[2]));
+
+            if(now.after(premium))
+            {
+                Account.accountFirebase.setPremium(false);
+                Account.saveAccount();
+            }
         }
+
 
 
 

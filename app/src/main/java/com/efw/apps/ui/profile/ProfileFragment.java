@@ -2,10 +2,13 @@ package com.efw.apps.ui.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +47,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -60,6 +64,20 @@ public class ProfileFragment extends Fragment {
     private BillingClient mBillingClient;
     private Map<String, SkuDetails> mSkuDetailsMap = new HashMap<>();
     private String mSkuId = "sku_id_1";
+
+    private PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            if(purchases != null) {
+                Account.accountFirebase.setPremium(true);
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.MONTH, 1);
+                Account.accountFirebase.setLast_date_premium(calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH)
+                + "." + calendar.get(Calendar.YEAR));
+                Account.saveAccount();
+            }
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,22 +97,22 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
         getReviewInfo();
 
-        FirebaseDatabase
-                .getInstance(new String(Base64.decode(Account.URL, Base64.DEFAULT)))
-                .getReference()
-                .child("mSkuId").get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
-                try {
-                    String id = task.getResult().getValue(String.class);
-                    if (id != null)
-                        mSkuId = id;
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        });
+//        FirebaseDatabase
+//                .getInstance(new String(Base64.decode(Account.URL, Base64.DEFAULT)))
+//                .getReference()
+//                .child("mSkuId").get().addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
+//                try {
+//                    String id = task.getResult().getValue(String.class);
+//                    if (id != null)
+//                        mSkuId = id;
+//                }
+//                catch (Exception ex)
+//                {
+//                }
+//            }
+//        });
 
         if(Account.accountFirebase.isPremium())
             binding.buyLay.setVisibility(View.GONE);
@@ -129,31 +147,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        mBillingClient = BillingClient.newBuilder(getActivity()).setListener(new PurchasesUpdatedListener() {
+        mBillingClient = BillingClient.newBuilder(getActivity())
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
+
+
+        mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null) {
-                    Account.accountFirebase.setPremium(true);
-                    Account.saveAccount();
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    querySkuDetails();
                 }
             }
-
-        }).enablePendingPurchases()
-                .build();
-        mBillingClient.startConnection(new BillingClientStateListener() {
-
-
             @Override
             public void onBillingServiceDisconnected() {
-                //сюда мы попадем если что-то пойдет не так
-            }
-
-            @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    querySkuDetails(); //запрос о товарах
-
-                }
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+                Log.e("Billing", "Error");
             }
         });
 
@@ -161,7 +172,10 @@ public class ProfileFragment extends Fragment {
         binding.buyProBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchBilling(mSkuId);
+                BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                        .setSkuDetails(mSkuDetailsMap.get(mSkuId))
+                        .build();
+                mBillingClient.launchBillingFlow(getActivity(), billingFlowParams);
             }
         });
 
@@ -275,13 +289,10 @@ public class ProfileFragment extends Fragment {
         mBillingClient.querySkuDetailsAsync(skuDetailsParamsBuilder.build(), new SkuDetailsResponseListener() {
             @Override
             public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> list) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    for (SkuDetails skuDetails : mSkuDetailsMap.values()) {
-                        mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
-                    }
+                for (SkuDetails skuDetails : list) {
+                    mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
                 }
             }
-
         });
     }
 

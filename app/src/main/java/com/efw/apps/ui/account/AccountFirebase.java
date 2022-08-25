@@ -16,6 +16,7 @@ public class AccountFirebase implements Serializable {
     boolean night_mode;
     String language;
     String array_days_training;
+    String last_date_premium;
 
     public int getCurrent_training_day() {
 
@@ -103,7 +104,17 @@ public class AccountFirebase implements Serializable {
 
     };
 
-    public AccountFirebase(String array_days_training, int current_training_day, Date last_date_online, int count_training, int time_training, Date start_training_day, Date last_training_day, boolean premium, boolean night_mode, String language) {
+    public String getLast_date_premium() {
+        return last_date_premium;
+    }
+
+    public void setLast_date_premium(String last_date_premium) {
+        this.last_date_premium = last_date_premium;
+    }
+
+    public AccountFirebase(String array_days_training, int current_training_day, Date last_date_online, int count_training,
+                           int time_training, Date start_training_day, Date last_training_day, boolean premium, boolean night_mode,
+                           String language, String last_date_premium) {
         this.current_training_day = current_training_day;
         this.last_date_online = last_date_online;
         this.count_training = count_training;
@@ -114,5 +125,6 @@ public class AccountFirebase implements Serializable {
         this.night_mode = night_mode;
         this.language = language;
         this.array_days_training = array_days_training;
+        this.last_date_premium = last_date_premium;
     }
 }

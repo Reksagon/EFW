@@ -327,7 +327,7 @@ public class SplashActivity extends AppCompatActivity {
                                         new Date(tmp.get(Calendar.YEAR), tmp.get(Calendar.MONTH), tmp.get(Calendar.DAY_OF_MONTH)),
                                         false,
                                         night_mode,
-                                        Locale.getDefault().getLanguage());
+                                        Locale.getDefault().getLanguage(),"00-00-0000");
 
                                 Account.accountFirebase = accountFirebase_new;
                                 task.getResult().getRef().push().setValue(accountFirebase_new);
